@@ -9,6 +9,7 @@ iterations = 5
 # Read arguments 
 
 def readArguments(): 
+	
 	if(len(sys.argv) < 4):
 		print("Error: Insufficient arguments, take 3 arguments")
 		sys.exit()
@@ -26,8 +27,32 @@ def readArguments():
 
 	return (image, imageW, imageH)
 
+def initImageMatrix():
 
+	imageVector = np.ndarray(shape=(imageW * imageH, 5), dtype=float)
+	pixelBelongsTo = np.ndarray(shape=(imageW * imageH), dtype=int)
+
+	for y in range(0, imageH):
+		for x in range(0, imageW):
+			xy = (x, y)
+			rgb = image.getpixel(xy)
+			imageVector[y * imageW + x, 0] = rgb[0]
+			imageVector[y * imageW + x, 1] = rgb[1]
+			imageVector[y * imageW + x, 2] = rgb[2]
+			imageVector[y * imageW + x, 3] = x
+			imageVector[y * imageW + x, 4] = y
+
+	imageVector_scaled = preprocessing.normalize(imageVector)
+	
+	return 
+
+# Read arguments
 (image, imageW, imageH) = readArguments()
+
+# Read the image matrix. normalize each feature of image
+initImageMatrix()
+
+
 
 
 
